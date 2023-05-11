@@ -26,7 +26,6 @@ public class CartSevice {
     private ProductService productService;
     @Autowired
     private CartItemRepositroy cartItemRepository;
-
     public Cart addToCart(Long productId, Long userId,Boolean increase) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Cart cart = cartRepository.findByUser(user).orElse(new Cart());
@@ -34,10 +33,8 @@ public class CartSevice {
             cart.setUser(user);
             cart = cartRepository.save(cart);
         }
-
         Product product = productService.getProductById(productId);
         CartItem existingCartItem = cartItemRepository.findByCartAndProduct(cart, product);
-
         if(existingCartItem != null) {
             int currentQuantity = existingCartItem.getQuantity();
             if (increase){
@@ -66,12 +63,20 @@ public class CartSevice {
         User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("NOT FOUND by id in cart serv"));;
         return user.getCart().getCartItems();
     }
-
     public void removeFromCart(Long cartItemId) {
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElse(null);
         if(cartItem != null) {
             cartItemRepository.deleteById(cartItemId);
         }
 
+    }
+    public void clearCart(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Cart cart = cartRepository.findByUser(user).orElse(new Cart());
+        List<CartItem> cartItems = cart.getCartItems();
+        cartItems.clear();
+        cart.setCartItems(cartItems);
+        user.setCart(cart);
+        userRepository.save(user);
     }
 }

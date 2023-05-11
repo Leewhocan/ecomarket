@@ -14,10 +14,17 @@ import lombok.Setter;
 @Table(name = "product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int price;
     private int count;
     private  String title;
     private  String opis;
+    private String img;
+    public Product(String title, String opis) {
+        this.title = title;
+        this.opis = opis;
+    }
+
+
 }

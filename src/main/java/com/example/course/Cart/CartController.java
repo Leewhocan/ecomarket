@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("carts")
+@CrossOrigin("http://localhost:3000")
 public class CartController {
 
     @Autowired
@@ -32,12 +33,7 @@ public class CartController {
             @RequestParam("user_id") Long userId,
             @RequestParam("increase") Boolean increase
     ) {
-        // TODO: 1. increase=true, cartRepository.findByProductId() = null => create new
-        // TODO: 2. increase=true,
-        //       2.1 productRepository.findById().count == getQuantity, не увеличиваем
-        //       2.2 find = cartItem => setQuantity (getQuantity + 1)
 
-        //
         try {
             return ResponseEntity.ok().body(cartSevice.addToCart(productId, userId, increase));
         }
@@ -45,6 +41,10 @@ public class CartController {
             return ResponseEntity.badRequest().body("Закончились продукты");
         }
 
+    }
+    @GetMapping("/delete")
+    public void deleteCart(@RequestParam("user_id") Long userId){
+        cartSevice.clearCart(userId);
     }
 
 }
