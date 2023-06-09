@@ -27,4 +27,9 @@ public class Product {
     }
 
 
+    public Product(long l, int i, int i1, String s, String s1) {
+    }
+
+    public Product(Long aLong, int i, int i1, String new_product, String opis) {
+    }
 }

@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("carts")
-@CrossOrigin("http://localhost:3000")
+@RequestMapping("/api/carts")
 public class CartController {
 
     @Autowired
@@ -21,9 +20,7 @@ public class CartController {
     public List<CartItem> getAllCartItems(
             @RequestParam("user_id") Long userId
     ){
-        System.out.println("xnj ,kznm yt nfr " + userId);
         List<CartItem> list = cartSevice.getCartItems(userId);
-        System.out.println(list);
         return list;
     }
 

@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
-@CrossOrigin("http://localhost:3000/")
+@RequestMapping("/api/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -15,7 +14,6 @@ public class ProductController {
     @GetMapping()
     public List<Product> getAllProducts(@RequestParam(name = "title",required = false) String title) {
         List<Product> product = productService.getProducts(title);
-        System.out.println(product);
         return product;
     }
 

@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:3000/")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
